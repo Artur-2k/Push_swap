@@ -1,5 +1,4 @@
 #include "../inc/push_swap.h"
-
 t_dlist *create_node(int num)
 {
 	t_dlist *new_node = (t_dlist*)malloc(sizeof(t_dlist));
@@ -10,7 +9,8 @@ t_dlist *create_node(int num)
 	new_node->num = num;
 	return (new_node);
 }
-void insert_at_head(t_dlist **head,t_dlist **tail, int num)
+//@ insert at head
+void push(t_dlist **head,t_dlist **tail, int num)
 {
 	t_dlist *new_node = create_node(num); // allocates memory for the new node
 	if (*head)
@@ -56,7 +56,7 @@ void free_list(t_dlist **head)
 	}
 	free(*head);
 }
-void pop_tail(t_dlist **tail, t_dlist **head)
+void pop(t_dlist **tail, t_dlist **head)
 {
 //   		  head
 //		         	  tail
@@ -85,9 +85,6 @@ void swap_data(t_dlist **node1, t_dlist **node2)
 	(*node1)->num = (*node2)->num;
 	(*node2)->num = temp;
 }
-
-
-
 void print_list(t_dlist *head) {
     t_dlist *current = head;
     while (current != NULL) {
@@ -97,13 +94,69 @@ void print_list(t_dlist *head) {
     printf("\n");  // Print a newline at the end
 }
 
+
+void	perror_and_exit(void)
+{
+	ft_printf("Error\n");
+	exit(1);
+}
+long	get_valid_num(char *str)
+{
+	long	num;
+	long	sign;
+	int		i;
+
+	i = 0;
+	sign = 1;
+	num = 0;
+	while(str[i])
+	{
+		if (str[i] == '-' || str[i] == '+')
+		{
+			if (str[i] == '-')
+				sign = -sign;
+			i++;
+		}
+		if (!ft_isdigit(str[i]) || i > 10) // se tiver uma letra/simbolo ou mais carateres que um intmin(-)
+			perror_and_exit();
+		else
+			num = num * 10 + str[i] - '0';
+		i++;
+	}
+	num *= sign;
+	if (!(-2147483647 <= num && num <= 2147483647))
+		perror_and_exit();
+	return (num);
+}
+
+
+void	check_arguments(int ac, char** av)
+{
+	int	j;
+	long	num;
+
+	if (ac < 2)
+		perror_and_exit();
+	while (--ac >= 1)
+	{
+		num = get_valid_num(av[ac]);
+		j = ac - 1;
+		while (j >= 1)
+		{
+			int temp2 = ft_atoi(av[j]);
+			if (num == temp2)
+				perror_and_exit();
+			j--;
+		}
+	}
+}
+
 int main(int ac, char** av)
 {
     t_dlist *head = NULL;
     t_dlist *tail = NULL;
 
-
-	free_list(&head);
+	check_arguments(ac, av);
 
     return 0;
 }
