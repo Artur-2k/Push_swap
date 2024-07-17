@@ -17,7 +17,7 @@ CFLAGS = -I$(INC_DIR) -Ilib/libft
 LINKS = $(LIB_DIR)/$(LIBFT)
 
 # FILES
-SRC_FILES = list_utils.c
+SRC_FILES = list_utils.c argument_checker.c
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
 MAIN_FILE = $(addprefix $(SRC_DIR), push_swap.c)

@@ -26,7 +26,11 @@ void swap_data(t_dlist **node1, t_dlist **node2);
 void free_list(t_dlist **head);
 void print_list(t_dlist *head);  //todo remove me
 
+//*			Argument check	 *//
 
+void	check_arguments(int ac, char **av);
+long	get_valid_num(char *str);
+void	perror_and_exit(void);
 
 
 
