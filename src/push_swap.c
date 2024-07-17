@@ -63,6 +63,7 @@ int main(int ac, char** av)
     t_dlist *tail = NULL;
 
 	check_arguments(ac, av);
+	printf("Ok!\n");
 
     return 0;
 }

@@ -5,7 +5,7 @@
 #include <unistd.h> // write, read
 #include <stdlib.h> // malloc, free, exit
 #include <stdarg.h> // args
-#include "../lib/Libft/libft.h" // libft
+#include "../lib/libft/libft.h" // libft
 
 struct s_dlist
 {
