@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   list_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/17 20:47:17 by artuda-s          #+#    #+#             */
+/*   Updated: 2024/07/17 20:47:18 by artuda-s         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/push_swap.h"
 
 //* allocate memory for a new node and assing its num
@@ -30,7 +42,7 @@ void insert_at_head(t_dlist **head,t_dlist **tail, int num)
 }
 //* insert at head
 //* push to stack
-void insert_at_tail(t_dlist **tail, t_dlist **head, int num)
+void push(t_dlist **tail, t_dlist **head, int num)
 {
 	t_dlist *new_node = create_node(num);
 

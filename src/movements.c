@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 20:17:19 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/07/17 20:45:40 by artuda-s         ###   ########.fr       */
+/*   Created: 2024/07/17 20:47:23 by artuda-s          #+#    #+#             */
+/*   Updated: 2024/07/17 20:53:05 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,8 @@ rrr
 
 */
 
-int	main(int ac, char **av)
+//todo rename nodes in params received
+void    sa(t_dlist **node1_a, t_dlist **node2_a)
 {
-    t_dlist	*head = NULL;
-    t_dlist	*tail = NULL;
-
-	check_arguments(ac, av);
-	printf("Ok!\n");
-	return (0);
+    swap_data(&node1_a, &((*node1_a)->next));
 }

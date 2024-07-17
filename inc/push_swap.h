@@ -20,7 +20,7 @@ typedef struct s_dlist	t_dlist;
 //*			LIST UTILS		*//
 t_dlist *create_node(int num);
 void insert_at_head(t_dlist **head,t_dlist **tail, int num);
-void insert_at_tail(t_dlist **tail, t_dlist **head, int num);
+void push(t_dlist **tail, t_dlist **head, int num);
 void pop(t_dlist **tail, t_dlist **head);
 void swap_data(t_dlist **node1, t_dlist **node2);
 void free_list(t_dlist **head);
