@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: artuda-s < artuda-s@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 20:47:17 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/07/17 20:47:18 by artuda-s         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:08:41 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,29 @@ void pop(t_dlist **tail, t_dlist **head)
 	else
 	{
 		free(*tail);
+		*head = NULL;
+		*tail = NULL;
+	}
+}
+void	remove_head(t_dlist **head, t_dlist **tail)
+{
+	//   		  head
+	//		         	  tail
+	//	NULL <- data1 <-> data2  -> NULL
+	//	NULL <- data1 -> NULL
+	t_dlist *next;
+
+	next = NULL;
+	if ((*head)->next != NULL)
+	{
+		next = (*head)->next;
+		free(*head);
+		next->prev = NULL;
+		*head = next;
+	}
+	else
+	{
+		free(*head);
 		*head = NULL;
 		*tail = NULL;
 	}

@@ -17,7 +17,7 @@ CFLAGS = -I$(INC_DIR) -Ilib/libft
 LINKS = $(LIB_DIR)/$(LIBFT)
 
 # FILES
-SRC_FILES = list_utils.c argument_checker.c
+SRC_FILES = list_utils.c argument_checker.c movements.c
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
 MAIN_FILE = $(addprefix $(SRC_DIR), push_swap.c)
@@ -28,7 +28,7 @@ all: $(TARGET)
 $(TARGET): $(LIBFT) $(OBJ)
 	@echo "Preparing the executable..."
 	@$(CC) $(CFLAGS) -o $@ $(MAIN_FILE) $(OBJ) $(LINKS)
-	@echo -e "\nPush_swap is ready.\nUsage: ./push_swap <(int)args>"
+	@echo "\nPush_swap is ready.\nUsage: ./push_swap int1 int2 int3 ..."
 
 $(LIBFT):
 	@echo "Creating libft.a..."
