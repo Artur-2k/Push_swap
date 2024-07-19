@@ -1,54 +1,48 @@
-# EXECUTABLE
-TARGET = push_swap
+# Binary
+BIN = push_swap
 
-# LIBRARIES
-LIBFT = libft.a
+# Compiler
+CC = gcc
+#-Wall -Wextra -Werror
+CFLAGS = -I$(INC_DIR) -I$(LIB_DIR)
 
-# DIRECTORIES
+# Directories
+INC_DIR = inc/
+LIB_DIR = libft/
 SRC_DIR = src/
 OBJ_DIR = obj/
-LIB_DIR = libft/
-INC_DIR = inc/
 
-# COMPILE STUFF
-CC = gcc
-CFLAGS = -I$(INC_DIR) -Ilibft/
-# -Wall -Werror -Wextra
-LINKS = $(LIB_DIR)/$(LIBFT)
-
-# FILES
-SRC_FILES = list_utils.c argument_checker.c movements.c
+# Files
+MAIN_FILE = $(SRC_DIR)push_swap.c
+LIB = $(LIB_DIR)libft.a
+SRC_FILES = argument_checker.c list_utils.c movements.c
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
-MAIN_FILE = $(addprefix $(SRC_DIR), push_swap.c)
 
-# RULES
-all: $(TARGET)
+# Phony targets
+.PHONY: all clean fclean re
 
-$(TARGET): $(LIBFT) $(OBJ)
-	@echo "Preparing the executable..."
-	@$(CC) $(CFLAGS) -o $@ $(MAIN_FILE) $(OBJ) $(LINKS)
-	@echo "\nPush_swap is ready.\nUsage: ./push_swap int1 int2 int3 ..."
+# Rules
+all: $(BIN)
 
-$(LIBFT):
-	@echo "Creating libft.a..."
-	@make --silent -C $(LIB_DIR)
-	@make --silent clean -C $(LIB_DIR)
+$(BIN): $(LIB) $(OBJ) | $(OBJ_DIR)
+	$(CC) $(CFLAGS) $(MAIN_FILE) $(OBJ) $(LIB) -o $@
 
-build:
-	@mkdir -p $(OBJ_DIR)
+$(LIB):
+	$(MAKE) -C $(LIB_DIR)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c | build
-	@$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR):
+	mkdir -p $@
 
 clean:
-	@echo "Cleaning!"
-	@rm -rf $(OBJ_DIR) $(LIBFT)
+	$(MAKE) -C $(LIB_DIR) clean
+	rm -rf $(OBJ_DIR)
 
-fclean:
-	@echo "Full cleaning!"
-	@rm -rf $(OBJ_DIR) $(TARGET) $(LIB_DIR)$(LIBFT)
+fclean: clean
+	$(MAKE) -C $(LIB_DIR) fclean
+	rm -f $(BIN)
 
 re: fclean all
-
-.PHONY: all clean fclean re
