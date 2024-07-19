@@ -7,12 +7,12 @@ LIBFT = libft.a
 # DIRECTORIES
 SRC_DIR = src/
 OBJ_DIR = obj/
-LIB_DIR = lib/
+LIB_DIR = libft/
 INC_DIR = inc/
 
 # COMPILE STUFF
 CC = gcc
-CFLAGS = -I$(INC_DIR) -Ilib/libft
+CFLAGS = -I$(INC_DIR) -Ilibft/
 # -Wall -Werror -Wextra
 LINKS = $(LIB_DIR)/$(LIBFT)
 
@@ -32,9 +32,8 @@ $(TARGET): $(LIBFT) $(OBJ)
 
 $(LIBFT):
 	@echo "Creating libft.a..."
-	@make --silent -C $(LIB_DIR)/libft
-	@make --silent clean -C $(LIB_DIR)/libft
-	@mv $(LIB_DIR)libft/libft.a $(LIB_DIR)
+	@make --silent -C $(LIB_DIR)
+	@make --silent clean -C $(LIB_DIR)
 
 build:
 	@mkdir -p $(OBJ_DIR)

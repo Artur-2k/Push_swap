@@ -6,7 +6,7 @@
 /*   By: artuda-s < artuda-s@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 20:47:23 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/07/18 18:21:36 by artuda-s         ###   ########.fr       */
+/*   Updated: 2024/07/19 18:42:31 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,90 +14,144 @@
 
 // Swaps the last two of the stack a integers with swap_data
 // User must pass the correct parameters
-void    sa(t_dlist **tail_a, t_dlist **tail_prev_a)
+void    sa(t_stack *stack_a)
 {
-    swap_data(tail_a, tail_prev_a);
+	if (!stack_a->tail || !stack_a->tail->prev)
+		return ;
+	swap_data(&stack_a->tail, &stack_a->tail->prev);
 }
+
 // Swaps the last two of the stack a integers with swap_data
 // User must pass the correct parameters
-void    sb(t_dlist **tail_b, t_dlist **tail_prev_b)
+void    sb(t_stack *stack_b)
 {
-    swap_data(tail_b, tail_prev_b);
+	if (!stack_b->tail || !stack_b->tail->prev)
+		return ;
+	swap_data(&stack_b->tail, &stack_b->tail->prev);
 }
 // Swaps the last two of the stack a and b integers with swap_data
 // User must pass the correct parameters
-void	ss(t_dlist **tail_a, t_dlist **tail_prev_a, t_dlist **tail_b, t_dlist **tail_prev_b)
+void	ss(t_stack *stack_a, t_stack *stack_b)
 {
-	swap_data(tail_a, tail_prev_a);
-	swap_data(tail_b, tail_prev_b);
+	if (!stack_a->tail || !stack_a->tail->prev)
+		return ;
+	if (!stack_b->tail || !stack_b->tail->prev)
+		return ;
+	swap_data(&stack_a->tail, &stack_a->tail->prev);
+	swap_data(&stack_b->tail, &stack_b->tail->prev);
 }
 
 // Adds the tail from stack b to a and removes tail from b
 // User must pass the correct parameters
-void	pa(t_dlist **tail_a, t_dlist **head_a, t_dlist **tail_b, t_dlist **head_b)
+void	pa(t_stack *stack_a, t_stack *stack_b)
 {
-	push(tail_a, head_a, (*tail_b)->num);
-	pop(tail_b, head_b);
+	if (stack_b->tail)
+	{
+		push(stack_a, stack_b->tail->num);
+		pop(stack_b);
+	}
+	else
+		return ;
 }
 
 // Adds the tail from stack a to b and removes tail from a
 // User must pass the correct parameters
-void	pb(t_dlist **tail_b, t_dlist **head_b, t_dlist **tail_a, t_dlist **head_a)
+void	pb(t_stack *stack_a, t_stack *stack_b)
 {
-	push(tail_b, head_b, (*tail_a)->num);
-	pop(tail_a, head_a);
+	if (stack_a->tail)
+	{
+		push(stack_b, stack_a->tail->num);
+		pop(stack_a);
+	}
+	else
+		return ;
 }
 
 // Rotates stack a one position up (head becomes tail)
 // Pushes head to tail and pops head and updates it.
 // User must pass the correct parameters
-void	ra(t_dlist **head_a, t_dlist **tail_a)
+void	ra(t_stack *stack_a)
 {
-	push(tail_a, head_a, (*head_a)->num);
-	remove_head(head_a, tail_a);
+	if (stack_a->size > 1)
+	{
+		push(stack_a, stack_a->head->num);
+		remove_head(stack_a);
+	}
+	else
+		return ;
 }
 // Rotates stack a one position up (head becomes tail)
 // Pushes head to tail and pops head and updates it.
 // User must pass the correct parameters
-void	rb(t_dlist **head_b, t_dlist **tail_b)
+void	rb(t_stack *stack_b)
 {
-	push(tail_b, head_b, (*head_b)->num);
-	remove_head(head_b, tail_b);
+	if (stack_b->size > 1)
+	{
+		push(stack_b, stack_b->head->num);
+		remove_head(stack_b);
+	}
+	else
+		return ;
 }
 // ra and rb basically
 // User must pass the correct parameters
-void	rr(t_dlist **head_a, t_dlist **tail_a, t_dlist **head_b, t_dlist **tail_b)
+void	rr(t_stack *stack_a, t_stack *stack_b)
 {
-	push(tail_a, head_a, (*head_a)->num);
-	remove_head(head_a, tail_a);
-	push(tail_b, head_b, (*head_b)->num);
-	remove_head(head_b, tail_b);
+	if (stack_a->size > 1)
+	{
+		push(stack_a, stack_a->head->num);
+		remove_head(stack_a);
+	}
+	if (stack_b->size > 1)
+	{
+		push(stack_b, stack_b->head->num);
+		remove_head(stack_b);
+	}
+	return ;
 }
 
 // Rotates stack a one position down (tail becomes head)
 // Inserts tail node before head and updates it and pops tail and updates it.
 // User must pass the correct parameters
-void	rra(t_dlist **head_a, t_dlist **tail_a)
+void	rra(t_stack *stack_a)
 {
-	insert_at_head(head_a, tail_a, (*tail_a)->num);
-	pop(tail_a, head_a);
+	if (stack_a->size > 1)
+	{
+		insert_at_head(stack_a, stack_a->tail->num);
+		pop(stack_a);
+	}
+	else
+		return ;
 }
 
 // Rotates stack a one position down (tail becomes head)
 // Inserts tail node before head and updates it and pops tail and updates it.
 // User must pass the correct parameters
-void	rrb(t_dlist **head_b, t_dlist **tail_b)
+void	rrb(t_stack *stack_b)
 {
-	insert_at_head(head_b, tail_b, (*tail_b)->num);
-	pop(tail_b, head_b);
+	if (stack_b->size > 1)
+	{
+		insert_at_head(stack_b, stack_b->tail->num);
+		pop(stack_b);
+	}
+	else
+		return ;
 }
+
 
 // rra and rrb basically
 // User must pass the correct parameters
-void rrr(t_dlist **head_a, t_dlist **tail_a, t_dlist **head_b, t_dlist **tail_b)
+void rrr(t_stack *stack_a, t_stack *stack_b)
 {
-	insert_at_head(head_a, tail_a, (*tail_a)->num);
-	pop(tail_a, head_a);
-	insert_at_head(head_b, tail_b, (*tail_b)->num);
-	pop(tail_b, head_b);
+	if (stack_a->size > 1)
+	{
+		insert_at_head(stack_a, stack_a->tail->num);
+		pop(stack_a);
+	}
+	if (stack_b->size > 1)
+	{
+		insert_at_head(stack_b, stack_b->tail->num);
+		pop(stack_b);
+	}
+	return ;
 }

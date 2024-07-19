@@ -6,7 +6,7 @@
 /*   By: artuda-s < artuda-s@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 20:47:17 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/07/18 18:08:41 by artuda-s         ###   ########.fr       */
+/*   Updated: 2024/07/19 18:34:38 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,64 +25,73 @@ t_dlist *create_node(int num)
 }
 //* insert at head
 //* used to read input arg
-void insert_at_head(t_dlist **head,t_dlist **tail, int num)
+void	insert_at_head(t_stack *stack, int num)
 {
-	t_dlist *new_node = create_node(num); // allocates memory for the new node
-	if (*head)
+	t_dlist *new_node;
+
+	new_node = create_node(num); // allocates memory for the new node
+	if (stack->head)
 	{
-		new_node->next = (*head);
-		(*head)->prev = new_node;
-		*head = new_node;
+		new_node->next = stack->head;
+		stack->head->prev = new_node;
+		stack->head = new_node;
 	}
 	else
 	{
-		*head = new_node;
-		*tail = new_node;
+		stack->head = new_node;
+		stack->tail = new_node;
 	}
+	stack->size++;
 }
+
 //* insert at head
 //* push to stack
-void push(t_dlist **tail, t_dlist **head, int num)
+void	push(t_stack *stack, int num)
 {
-	t_dlist *new_node = create_node(num);
+	t_dlist *new_node;
 
-	if (*tail)
+	new_node = create_node(num); // allocates memory for the new node
+	if (stack->tail)
 	{
-		(*tail)->next = new_node;
-		new_node->prev = *tail;
-		*tail = new_node;
+		(stack->tail)->next = new_node;
+		new_node->prev = stack->tail;
+		stack->tail = new_node;
 	}
 	else
 	{
-		*head = new_node;
-		*tail = new_node;
+		stack->head = new_node;
+		stack->tail = new_node;
 	}
+	stack->size++;
 }
 
 //* removes the last node (tail)
 //* pop from stack
-void pop(t_dlist **tail, t_dlist **head)
+void	pop(t_stack *stack)
 {
 //   		  head
 //		         	  tail
 //	NULL <- data1 <-> data2  -> NULL
-	t_dlist *preview = (*tail)->prev;
+	t_dlist *preview;
 
-	if ((*tail)->prev != NULL)
+	preview = (stack->tail)->prev;
+	if ((stack->tail)->prev != NULL)
 	{
-		preview = (*tail)->prev;
-		free(*tail);
+		preview = (stack->tail)->prev;
+		free(stack->tail);
 		preview->next = NULL;
-		*tail = preview;
+		stack->tail = preview;
 	}
 	else
 	{
-		free(*tail);
-		*head = NULL;
-		*tail = NULL;
+		free(stack->tail);
+		stack->head = NULL;
+		stack->tail = NULL;
 	}
+	stack->size--;
 }
-void	remove_head(t_dlist **head, t_dlist **tail)
+
+void	remove_head(t_stack *stack)
 {
 	//   		  head
 	//		         	  tail
@@ -91,19 +100,20 @@ void	remove_head(t_dlist **head, t_dlist **tail)
 	t_dlist *next;
 
 	next = NULL;
-	if ((*head)->next != NULL)
+	if ((stack->head)->next != NULL)
 	{
-		next = (*head)->next;
-		free(*head);
+		next = (stack->head)->next;
+		free(stack->head);
 		next->prev = NULL;
-		*head = next;
+		stack->head = next;
 	}
 	else
 	{
-		free(*head);
-		*head = NULL;
-		*tail = NULL;
+		free(stack->head);
+		stack->head = NULL;
+		stack->tail = NULL;
 	}
+	stack->size--;
 }
 
 //* swaps the data from node1 and node2
@@ -126,6 +136,8 @@ void free_list(t_dlist **head)
 //	NULL <-> data1 <-> data2 <-> data3 <-> NULL
 	t_dlist *temp = NULL;
 
+	if (*head == NULL)
+		return;
 	while ((*head)->next != NULL)
 	{
 		temp = (*head)->next;
