@@ -25,7 +25,7 @@ OBJ = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
 # Rules
 all: $(BIN)
 
-$(BIN): $(LIB) $(OBJ) | $(OBJ_DIR)
+$(BIN): $(LIB) $(MAIN_FILE) $(OBJ) | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(MAIN_FILE) $(OBJ) $(LIB) -o $@
 
 $(LIB):

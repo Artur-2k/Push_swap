@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   argument_checker.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: artuda-s < artuda-s@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 20:47:21 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/07/17 20:47:22 by artuda-s         ###   ########.fr       */
+/*   Updated: 2024/07/20 18:43:13 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,17 @@ void	check_arguments(int ac, char **av)
 	int		j;
 	long	num;
 	int		temp2;
+	int		i;
 
 	if (ac < 2)
 		perror_and_exit();
-	while (--ac >= 1)
+	if (ac == 2)
+		av = ft_split(av[1], ' ');
+	i = ac - 1;
+	while (av[i])
 	{
-		num = get_valid_num(av[ac]);
-		j = ac - 1;
+		num = get_valid_num(av[i]);
+		j = i - 1;
 		while (j >= 1)
 		{
 			temp2 = ft_atoi(av[j]);
@@ -67,5 +71,6 @@ void	check_arguments(int ac, char **av)
 				perror_and_exit();
 			j--;
 		}
+		i++;
 	}
 }
