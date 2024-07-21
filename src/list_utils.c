@@ -6,11 +6,13 @@
 /*   By: artuda-s < artuda-s@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 20:47:17 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/07/19 18:34:38 by artuda-s         ###   ########.fr       */
+/*   Updated: 2024/07/21 22:37:49 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
+
+//todo create node malloc error handling e get_index index starting at 0 or 1
 
 //* allocate memory for a new node and assing its num
 t_dlist *create_node(int num)
@@ -97,7 +99,7 @@ void	remove_head(t_stack *stack)
 	//		         	  tail
 	//	NULL <- data1 <-> data2  -> NULL
 	//	NULL <- data1 -> NULL
-	t_dlist *next;
+	t_dlist	*next;
 
 	next = NULL;
 	if ((stack->head)->next != NULL)
@@ -118,13 +120,71 @@ void	remove_head(t_stack *stack)
 
 //* swaps the data from node1 and node2
 //* keeps the list structure the same
-void swap_data(t_dlist **node1, t_dlist **node2)
+void	swap_data(t_dlist **node1, t_dlist **node2)
 {
-	int temp;
+	int	temp;
 
 	temp = (*node1)->num;
 	(*node1)->num = (*node2)->num;
 	(*node2)->num = temp;
+}
+
+int	get_index(t_stack stack, int num)
+{
+    int	index;
+
+    index = 0; //todo =1 if needed to correct
+    while (stack.head != NULL && stack.head->num != num)
+    {
+        stack.head = stack.head->next;
+        index++;
+    }
+    return (index);
+}
+
+int	get_smaller(t_stack stack)
+{
+    int	smaller;
+
+    if (!stack.head)
+        return (0);
+    smaller = stack.head->num;
+    while (stack.head != NULL)
+    {
+        if (smaller > stack.head->num)
+            smaller = stack.head->num;
+        stack.head = stack.head->next;
+    }
+    return (smaller);
+}
+
+int	get_bigger(t_stack stack)
+{
+    int	bigger;
+
+    if (!stack.head)
+        return (0);
+    bigger = stack.head->num;
+    while (stack.head != NULL)
+    {
+        if (bigger < stack.head->num)
+            bigger = stack.head->num;
+        stack.head = stack.head->next;
+    }
+    return (bigger);
+}
+
+int is_sorted(t_stack stack)
+{
+    if (stack.head == NULL)
+        return (0);
+    while (stack.head->next != NULL)
+    {
+        if (stack.head->num < stack.head->next->num)
+            return (0);
+        stack.head = stack.head->next;
+    }
+    return (1);
 }
 
 //* free the resources allocated from the given list

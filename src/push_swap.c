@@ -6,11 +6,27 @@
 /*   By: artuda-s < artuda-s@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 20:17:19 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/07/20 18:48:28 by artuda-s         ###   ########.fr       */
+/*   Updated: 2024/07/21 22:36:41 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
+
+int	find_target(t_stack stack, int num)
+{
+    int	target;
+
+    target = get_smaller(stack);
+    if (num <= target)
+        return (get_bigger(stack));
+    while (stack.head != NULL)
+    {
+        if( stack.head->num < num && stack.head->num > target)
+            target = stack.head->num;
+        stack.head = stack.head->next;
+    }
+    return (target);
+}
 
 void	init_stacks(t_stack *stack_a, t_stack *stack_b, int ac, char ** av)
 {
