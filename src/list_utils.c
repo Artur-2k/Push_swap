@@ -6,14 +6,13 @@
 /*   By: artuda-s < artuda-s@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 20:47:17 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/07/22 18:58:26 by artuda-s         ###   ########.fr       */
+/*   Updated: 2024/07/22 20:36:20 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-//todo create node malloc error handling e get_index index starting at 0 or 1
-
+//todo create node malloc error handling
 //* allocate memory for a new node and assing its num
 t_dlist *create_node(int num)
 {
@@ -134,13 +133,33 @@ int	get_index(t_stack stack, int num)
 {
     int	index;
 
-    index = 0; //todo =1 if needed to correct
+    index = 0;
     while (stack.head != NULL && stack.head->num != num)
     {
         stack.head = stack.head->next;
         index++;
     }
     return (index);
+}
+
+void	update_index(t_stack *stack)
+{
+    int	index;
+	int medium;
+	t_dlist *current;
+
+	current = stack->head;
+	medium = stack->size / 2;
+    index = 0;
+    while (current != NULL)
+    {
+        current->index = index++;
+		if (index > medium)
+			current->above_medium = 1;
+		else
+			current->above_medium = 0;
+        current = current->next;
+    }
 }
 
 t_dlist	*get_smaller(t_stack stack)

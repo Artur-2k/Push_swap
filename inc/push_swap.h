@@ -14,6 +14,7 @@ typedef struct s_dlist
 	struct s_dlist	*target;
 	int				num;
 	int				above_medium;
+	int				index;
 }	t_dlist;
 
 typedef struct s_stack
@@ -35,6 +36,7 @@ void	swap_data(t_dlist **node1, t_dlist **node2);
 int		get_index(t_stack stack, int num);
 t_dlist	*get_smaller(t_stack stack);
 t_dlist	*get_bigger(t_stack stack);
+void	update_index(t_stack *stack);
 int 	is_sorted(t_stack stack);
 
 
