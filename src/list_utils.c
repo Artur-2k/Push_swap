@@ -6,7 +6,7 @@
 /*   By: artuda-s < artuda-s@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 20:47:17 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/07/21 22:37:49 by artuda-s         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:58:26 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_dlist *create_node(int num)
 		return (ft_printf("Malloc error!\n"), NULL);
 	new_node->next = NULL;
 	new_node->prev = NULL;
+	new_node->target = NULL;
 	new_node->num = num;
 	return (new_node);
 }
@@ -142,36 +143,36 @@ int	get_index(t_stack stack, int num)
     return (index);
 }
 
-int	get_smaller(t_stack stack)
+t_dlist	*get_smaller(t_stack stack)
 {
-    int	smaller;
+    t_dlist *smaller_node;
 
     if (!stack.head)
         return (0);
-    smaller = stack.head->num;
+	smaller_node = stack.head;
     while (stack.head != NULL)
     {
-        if (smaller > stack.head->num)
-            smaller = stack.head->num;
+        if (smaller_node->num > stack.head->num)
+            smaller_node = stack.head;
         stack.head = stack.head->next;
     }
-    return (smaller);
+    return (smaller_node);
 }
 
-int	get_bigger(t_stack stack)
+t_dlist	*get_bigger(t_stack stack)
 {
-    int	bigger;
+    t_dlist *bigger_node;
 
     if (!stack.head)
         return (0);
-    bigger = stack.head->num;
+    bigger_node->num = stack.head->num;
     while (stack.head != NULL)
     {
-        if (bigger < stack.head->num)
-            bigger = stack.head->num;
+        if (bigger_node->num < stack.head->num)
+            bigger_node = stack.head;
         stack.head = stack.head->next;
     }
-    return (bigger);
+    return (bigger_node);
 }
 
 int is_sorted(t_stack stack)

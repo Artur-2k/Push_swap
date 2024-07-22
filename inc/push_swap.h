@@ -10,8 +10,10 @@
 typedef struct s_dlist
 {
 	struct s_dlist	*prev;
-	int				num;
 	struct s_dlist	*next;
+	struct s_dlist	*target;
+	int				num;
+	int				above_medium;
 }	t_dlist;
 
 typedef struct s_stack
@@ -30,6 +32,12 @@ void	push(t_stack *stack, int num);
 void	pop(t_stack *stack);
 void	remove_head(t_stack *stack);
 void	swap_data(t_dlist **node1, t_dlist **node2);
+int		get_index(t_stack stack, int num);
+t_dlist	*get_smaller(t_stack stack);
+t_dlist	*get_bigger(t_stack stack);
+int 	is_sorted(t_stack stack);
+
+
 void	free_list(t_dlist **head);
 void	print_list(t_dlist *head);  //todo remove me
 

@@ -26,13 +26,13 @@ OBJ = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
 all: $(BIN)
 
 $(BIN): $(LIB) $(MAIN_FILE) $(OBJ) | $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(MAIN_FILE) $(OBJ) $(LIB) -o $@
+	$(CC) $(CFLAGS) $(MAIN_FILE) $(OBJ) $(LIB) -o $@ -g
 
 $(LIB):
 	$(MAKE) -C $(LIB_DIR)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ -g
 
 $(OBJ_DIR):
 	mkdir -p $@
