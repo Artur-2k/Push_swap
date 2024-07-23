@@ -6,7 +6,7 @@
 /*   By: artuda-s < artuda-s@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 20:47:17 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/07/22 20:36:20 by artuda-s         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:16:56 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	pop(t_stack *stack)
 	preview = (stack->tail)->prev;
 	if ((stack->tail)->prev != NULL)
 	{
-		preview = (stack->tail)->prev;
 		free(stack->tail);
 		preview->next = NULL;
 		stack->tail = preview;
@@ -154,7 +153,7 @@ void	update_index(t_stack *stack)
     while (current != NULL)
     {
         current->index = index++;
-		if (index > medium)
+		if (index >= medium)
 			current->above_medium = 1;
 		else
 			current->above_medium = 0;
@@ -184,7 +183,7 @@ t_dlist	*get_bigger(t_stack stack)
 
     if (!stack.head)
         return (0);
-    bigger_node->num = stack.head->num;
+    bigger_node = stack.head;
     while (stack.head != NULL)
     {
         if (bigger_node->num < stack.head->num)
