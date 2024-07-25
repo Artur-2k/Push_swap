@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: artuda-s < artuda-s@student.42porto.com    +#+  +:+       +#+        */
+/*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 20:47:17 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/07/23 15:16:56 by artuda-s         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:00:11 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int	get_index(t_stack stack, int num)
 {
     int	index;
 
-    index = 0;
+    index = 1;
     while (stack.head != NULL && stack.head->num != num)
     {
         stack.head = stack.head->next;
@@ -149,11 +149,11 @@ void	update_index(t_stack *stack)
 
 	current = stack->head;
 	medium = stack->size / 2;
-    index = 0;
+    index = 1;
     while (current != NULL)
     {
         current->index = index++;
-		if (index >= medium)
+		if (index > medium)
 			current->above_medium = 1;
 		else
 			current->above_medium = 0;

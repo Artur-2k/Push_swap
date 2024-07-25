@@ -15,6 +15,8 @@ typedef struct s_dlist
 	int				num;
 	int				above_medium;
 	int				index;
+	int				cost;
+	int				rot_both;
 }	t_dlist;
 
 typedef struct s_stack
@@ -25,6 +27,11 @@ typedef struct s_stack
 }	t_stack;
 
 //*			PROTOTYPES   	*//
+
+
+//*			UTILS			*//
+int get_min(int a, int b);
+int get_max(int a, int b);
 
 //*			LIST UTILS		*//
 t_dlist *create_node(int num);

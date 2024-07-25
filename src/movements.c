@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: artuda-s < artuda-s@student.42porto.com    +#+  +:+       +#+        */
+/*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 20:47:23 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/07/23 11:38:08 by artuda-s         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:27:02 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	ra(t_stack *stack_a)
 		insert_at_head(stack_a, stack_a->tail->num);
 		pop(stack_a);
 	}
-	printf("ra\n");
+	printf("ra\n");	
 	return ;
 }
 

@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:05:19 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/04/22 15:12:27 by artuda-s         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:45:38 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct s_list
 
 }					t_list;
 
+int					ft_get_min(int a, int b);
+int					ft_get_max(int a, int b);
 int					ft_isalnum(int c);
 int					ft_isalpha(int c);
 int					ft_isascii(int c);
