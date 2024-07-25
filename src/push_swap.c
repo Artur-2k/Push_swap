@@ -12,7 +12,7 @@
 
 #include "../inc/push_swap.h"
 
-void	init_stacks(t_stack *stack_a, t_stack *stack_b, int ac, char **av)
+void	init_stacks(t_stack *stack_a, t_stack *stack_b, int	*numbers, int count)
 {
 	int i;
 
@@ -22,15 +22,17 @@ void	init_stacks(t_stack *stack_a, t_stack *stack_b, int ac, char **av)
 	stack_b->head = NULL;
 	stack_b->tail = NULL;
 	stack_b->size = 0;
-	i = 1;
+	i = 0;
 
-	if (ac == 2)
+/* 	if (ac == 2)
 	{
 		av = ft_split(av[1], ' ');
 		i = 0;
-	}
-	while (av[i] != NULL)
-		insert_at_head(stack_a, ft_atoi(av[i++]));
+	} */
+/* 	while (av[i] != NULL)
+		insert_at_head(stack_a, ft_atoi(av[i++])); */
+	while (i < count)
+		insert_at_head(stack_a, numbers[i++]);
 	return ;
 }
 
@@ -355,10 +357,20 @@ int	main(int ac, char **av)
 {
     t_stack stack_a;
     t_stack stack_b;
+	int *numbers;
+	int count;
 
-	check_arguments(ac, av);
+    if (ac < 2)
+	{
+		ft_printf("Error\n");
+        exit (1);
+	}
 
-    init_stacks(&stack_a, &stack_b, ac, av);
+    numbers = parse_arguments(ac, av, &count);
+//	av = check_arguments(ac, av);
+
+    //init_stacks(&stack_a, &stack_b, ac, av);
+    init_stacks(&stack_a, &stack_b, numbers, count);
 
 	update_index(&stack_a);
 
@@ -375,8 +387,11 @@ int	main(int ac, char **av)
 			turk_algorithm(&stack_a, &stack_b);
 	}
 
+	print_list(stack_a.head);
+	print_list(stack_b.head);
 
-
+	if (numbers);
+		free(numbers);
 	if (stack_a.head)
 	    free_list(&stack_a.head);
 	if (stack_b.head)

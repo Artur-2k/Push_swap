@@ -50,7 +50,13 @@ void	print_list(t_dlist *head);  //todo remove me
 
 //*			Argument check	 *//
 
-void	check_arguments(int ac, char **av);
+int *parse_arguments(int ac, char **av, int *count);
+
+
+
+
+
+char	**check_arguments(int ac, char **av);
 long	get_valid_num(char *str);
 void	perror_and_exit(void);
 
