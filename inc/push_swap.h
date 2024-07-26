@@ -29,10 +29,6 @@ typedef struct s_stack
 //*			PROTOTYPES   	*//
 
 
-//*			UTILS			*//
-int get_min(int a, int b);
-int get_max(int a, int b);
-
 //*			LIST UTILS		*//
 t_dlist *create_node(int num);
 void	insert_at_head(t_stack *stack, int num);
@@ -40,7 +36,6 @@ void	push(t_stack *stack, int num);
 void	pop(t_stack *stack);
 void	remove_head(t_stack *stack);
 void	swap_data(t_dlist **node1, t_dlist **node2);
-int		get_index(t_stack stack, int num);
 void	update_index(t_stack *stack);
 t_dlist	*get_smaller(t_stack stack);
 t_dlist	*get_bigger(t_stack stack);
@@ -53,12 +48,11 @@ void	print_list(t_dlist *head);  //todo remove me
 int *parse_arguments(int ac, char **av, int *count);
 
 
-
-
-
-char	**check_arguments(int ac, char **av);
-long	get_valid_num(char *str);
-void	perror_and_exit(void);
+//* error managment and free resources   *//
+void	error_exit(void);
+void	error_exit_free(char **args, int *numbers);
+void	ft_free_split(char **split);
+void	free_list(t_dlist **head);
 
 //*			Commands		 *//
 void    sa(t_stack *stack_a);

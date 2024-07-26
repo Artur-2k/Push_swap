@@ -6,246 +6,116 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 20:47:21 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/07/25 20:45:01 by artuda-s         ###   ########.fr       */
+/*   Updated: 2024/07/26 13:31:45 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-#include <limits.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
-void ft_free_split(char **split)
+int	is_valid_int(const char *str, int *num)
 {
-    int i;
-
-    if (!split)
-        return;
-
-    i = 0;
-    while (split[i])
-    {
-        free(split[i]);
-        i++;
-    }
-    free(split);
-}
-
-void error_exit(char **to_free)
-{
-    if (to_free)
-        ft_free_split(to_free);
-    ft_putstr_fd("Error\n", 2);
-    exit(1);
-}
-
-bool is_valid_int(const char *str, int *num)
-{
-    long long int result = 0;
-    int sign = 1;
-    int i = 0;
-
-    if (str[i] == '-' || str[i] == '+')
-    {
-        sign = (str[i++] == '-') ? -1 : 1;
-    }
-
-    if (!str[i])
-        return false;
-
-    while (str[i])
-    {
-        if (!ft_isdigit(str[i]))
-            return false;
-        result = result * 10 + (str[i] - '0');
-        if (result * sign > INT_MAX || result * sign < INT_MIN)
-            return false;
-        i++;
-    }
-
-    *num = (int)(result * sign);
-    return true;
-}
-
-bool check_duplicates(int *numbers, int count)
-{
-    for (int i = 0; i < count; i++)
-    {
-        for (int j = i + 1; j < count; j++)
-        {
-            if (numbers[i] == numbers[j])
-                return true;
-        }
-    }
-    return false;
-}
-
-int *parse_arguments(int ac, char **av, int *count)
-{
-    char **args = NULL;
-    int *numbers = NULL;
-    int num_count = 0;
-    bool need_free = false;
-
-    if (ac == 2)
-    {
-        args = ft_split(av[1], ' ');
-        if (!args || !args[0])
-      	{
-			ft_printf("Error \n");
-			exit(1);
-		}
-        need_free = true;
-    }
-    else
-    {
-        args = av + 1;
-    }
-
-    // Count the number of arguments
-    for (int i = 0; args[i]; i++)
-        num_count++;
-	
-    numbers = malloc(sizeof(int) * num_count);
-    if (!numbers)
-        error_exit(need_free ? args : NULL);
-
-    // Parse and validate each number
-    for (int i = 0; i < num_count; i++)
-    {
-        if (!is_valid_int(args[i], &numbers[i]))
-        {
-            free(numbers);
-            error_exit(need_free ? args : NULL);
-        }
-    }
-
-    // Check for duplicates
-    if (check_duplicates(numbers, num_count))
-    {
-        free(numbers);
-        error_exit(need_free ? args : NULL);
-    }
-
-    if (need_free)
-        ft_free_split(args);
-
-    *count = num_count;
-    return numbers;
-}
-
-
-
-/* void	perror_and_exit(void)
-{
-	ft_printf("Error\n");
-	exit(1);
-}
-
-// se tiver uma letra/simbolo ou mais carateres que um intmin(-)
-long	get_valid_num(char *str)
-{
-	long	num;
+	long	result;
 	int		sign;
-	int		i;
 
-	i = 0;
+	result = 0;
 	sign = 1;
-	num = 0;
-	if (str[i] == '-' || str[i] == '+')
+	if (*str == '+' || *str == '-')
 	{
-		if (str[i] == '-')
-			sign = -sign;
-		i++;
+		if (*str == '-')
+			sign = -1;
+		str++;
 	}
-	while (str[i])
+	while (*str)
 	{
-		if (!ft_isdigit(str[i]) || i > 10)
-			perror_and_exit();
-		else
-			num = num * 10 + str[i] - '0';
-		i++;
+		if (!ft_isdigit(*str))
+			return (0);
+		result = result * 10 + (*str - '0');
+		if (result > INT_MAX || result * sign < INT_MIN)
+			return (0);
+		str++;
 	}
-	num *= sign;
-	if (!(-2147483647 <= num && num <= 2147483647))
-		perror_and_exit();
-	return (num);
+	*num = (int)(result * sign);
+	return (1);
 }
 
-int		ft_confirm_ac(char **av)
+int	check_duplicates(int *numbers, int count, char **args, int need_free)
 {
 	int	i;
-	
-	if (!av)
-	{
-		ft_printf("Error\n");
-		exit (1);
-	}
-	i = 0;
-	while (!av[i])
-		i++;
-	return (i);
-}
+	int	j;
 
-char **check_2_args(int ac, char **av)
-{
-	int		i;
-	int		j;
-	long	num;
-	long	temp;
-	
-	av = ft_split(av[1], ' ');
-	if (!av)
-	{
-		ft_printf("Error\n");
-		exit (1);
-	}
 	i = 0;
-	while (av[i] != NULL)
+	j = 0;
+	while (i < count)
 	{
-		num = get_valid_num(av[i]);
 		j = i + 1;
-		while (av[j] != NULL)
+		while (j < count)
 		{
-			temp = get_valid_num(av[j]);
-			if (num == temp)
-				perror_and_exit();
+			if (numbers[i] == numbers[j])
+			{
+				if (need_free)
+					error_exit_free(args, numbers);
+				else
+					error_exit_free(NULL, numbers);
+			}
 			j++;
 		}
 		i++;
 	}
-	return (av);
+	return (0);
 }
-		
-char	**check_arguments(int ac, char **av)
-{
-	int		i;
-	int		j;
-	long	num;
-	long	temp;
 
-	if (ac < 2)
-		perror_and_exit();
-	if (ac == 2)
-		av = check_2_args(ac, av);
-	else
-	{	
-		i = ac - 1;
-		while (av[i])
-		{
-			num = get_valid_num(av[i]);
-			j = i - 1;
-			while (j >= 1)
-			{
-				temp = get_valid_num(av[j]);
-				if (num == temp)
-					perror_and_exit();
-				j--;
-			}
-			i--;
-		}
-	}
-	return (av);
+int	count_numbers(char **args)
+{
+	int	num_count;
+
+	num_count = 0;
+	while (args[num_count])
+		num_count++;
+	return (num_count);
 }
- */
+
+void	get_valid_numbers(int count, int *numbers, char **args, int need_free)
+{
+	int	i;
+
+	i = 0;
+	while (i < count)
+	{
+		if (!is_valid_int(args[i], numbers))
+		{
+			if (need_free)
+				error_exit_free(args, numbers);
+			else
+				error_exit_free(NULL, numbers);
+		}
+		numbers++;
+		i++;
+	}
+}
+
+int	*parse_arguments(int ac, char **av, int *count)
+{
+	char	**args;
+	int		*numbers;
+	int		need_free;
+
+	need_free = 0;
+	if (ac == 2)
+	{
+		args = ft_split(av[1], ' ');
+		if (!args || !args[0])
+			error_exit();
+		need_free = 1;
+	}
+	else
+		args = av + 1;
+	*count = count_numbers(args);
+	numbers = malloc(sizeof(int) * (*count));
+	if (!numbers && ac == 2)
+		error_exit_free(args, NULL);
+	get_valid_numbers(*count, numbers, args, need_free);
+	check_duplicates(numbers, *count, args, need_free);
+	if (need_free)
+		ft_free_split(args);
+	return (numbers);
+}
