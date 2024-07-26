@@ -357,7 +357,6 @@ int	main(int ac, char **av)
 		error_exit();
     numbers = parse_arguments(ac, av, &count);
     init_stacks(&stack_a, &stack_b, numbers, count);
-	update_index(&stack_a);
  	if (!is_sorted(stack_a))
 	{
 		if (stack_a.size == 2)
@@ -368,6 +367,5 @@ int	main(int ac, char **av)
 			turk_algorithm(&stack_a, &stack_b);
 	}
 	free_last_resources(numbers, stack_a.head, stack_b.head);
-
     return (0);
 }
