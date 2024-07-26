@@ -50,9 +50,10 @@ int *parse_arguments(int ac, char **av, int *count);
 
 //* error managment and free resources   *//
 void	error_exit(void);
-void	error_exit_free(char **args, int *numbers);
+void	error_exit_free(char **args, int *numbers, int need_free);
 void	ft_free_split(char **split);
 void	free_list(t_dlist **head);
+void	free_last_resources(int *numbers, t_dlist *head_a, t_dlist *head_b);
 
 //*			Commands		 *//
 void    sa(t_stack *stack_a);

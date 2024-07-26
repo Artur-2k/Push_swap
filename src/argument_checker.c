@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 20:47:21 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/07/26 13:31:45 by artuda-s         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:06:05 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int	check_duplicates(int *numbers, int count, char **args, int need_free)
 			if (numbers[i] == numbers[j])
 			{
 				if (need_free)
-					error_exit_free(args, numbers);
+					error_exit_free(args, numbers, need_free);
 				else
-					error_exit_free(NULL, numbers);
+					error_exit_free(NULL, numbers, need_free);
 			}
 			j++;
 		}
@@ -81,14 +81,13 @@ void	get_valid_numbers(int count, int *numbers, char **args, int need_free)
 	i = 0;
 	while (i < count)
 	{
-		if (!is_valid_int(args[i], numbers))
+		if (!is_valid_int(args[i], &numbers[i]))
 		{
+			free(numbers);
 			if (need_free)
-				error_exit_free(args, numbers);
-			else
-				error_exit_free(NULL, numbers);
+				ft_free_split(args);
+			error_exit();
 		}
-		numbers++;
 		i++;
 	}
 }
@@ -102,8 +101,10 @@ int	*parse_arguments(int ac, char **av, int *count)
 	need_free = 0;
 	if (ac == 2)
 	{
+		if (ft_strlen(av[1]) == 0)
+			error_exit();
 		args = ft_split(av[1], ' ');
-		if (!args || !args[0])
+		if (!args)
 			error_exit();
 		need_free = 1;
 	}
@@ -111,8 +112,8 @@ int	*parse_arguments(int ac, char **av, int *count)
 		args = av + 1;
 	*count = count_numbers(args);
 	numbers = malloc(sizeof(int) * (*count));
-	if (!numbers && ac == 2)
-		error_exit_free(args, NULL);
+	if ((!numbers && ac == 2))
+		error_exit_free(args, NULL, 1);
 	get_valid_numbers(*count, numbers, args, need_free);
 	check_duplicates(numbers, *count, args, need_free);
 	if (need_free)

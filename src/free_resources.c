@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:29:09 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/07/26 13:32:50 by artuda-s         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:10:51 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,14 @@ void	free_list(t_dlist **head)
 		*head = temp;
 	}
 	free(*head);
+}
+
+void	free_last_resources(int *numbers, t_dlist *head_a, t_dlist *head_b)
+{
+	if (numbers)
+		free(numbers);
+	if (head_a)
+		free_list(&head_a);
+	if (head_b)
+		free_list(&head_b);
 }

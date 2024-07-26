@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:29:10 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/07/26 12:55:44 by artuda-s         ###   ########.fr       */
+/*   Updated: 2024/07/26 14:49:29 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,11 @@ void	error_exit(void)
 	exit(1);
 }
 
-void	error_exit_free(char **args, int *numbers)
+void	error_exit_free(char **args, int *numbers, int need_free)
 {
 	if (numbers)
 		free(numbers);
-	if (args)
+	if (need_free && args)
 		ft_free_split(args);
-	ft_putstr_fd("Error free\n", 2);
-	exit(1);
+	error_exit();
 }

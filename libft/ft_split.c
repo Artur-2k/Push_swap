@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 13:21:07 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/05/03 13:48:27 by artuda-s         ###   ########.fr       */
+/*   Updated: 2024/07/26 14:41:13 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ char	**ft_split(const char *s, char c)
 	char	**sarr;
 	int		words;
 
+	if (!s || !s[0])
+		return (NULL);
 	words = ft_count_words(s, c);
 	sarr = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!sarr)
