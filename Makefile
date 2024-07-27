@@ -17,7 +17,8 @@ MAIN_FILE = $(SRC_DIR)push_swap.c
 LIB = $(LIB_DIR)libft.a
 SRC_FILES = argument_checker.c error_managment.c free_resources.c \
 			 list_utils1.c list_utils2.c movements1.c  movements2.c \
-			 movements3.c 
+			 movements3.c turk_algorithm.c find_cheapest_a.c place_at_top.c\
+			 find_targets.c place_target_a_at_top.c
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
 
