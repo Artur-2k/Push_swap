@@ -71,6 +71,8 @@ int	count_numbers(char **args)
 	num_count = 0;
 	while (args[num_count])
 		num_count++;
+	if (num_count == 0)
+		error_exit_free(args, NULL, 1);
 	return (num_count);
 }
 
