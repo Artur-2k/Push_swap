@@ -77,7 +77,7 @@ t_dlist	*find_cheapest_a(t_stack *stack_a, t_stack *stack_b);
 //*			Topping targets		*//
 void	place_at_top(t_stack *stk_a, t_stack *stk_b, t_dlist cheap, \
 					t_dlist targ);
-void	place_target_a_at_top(t_stack *stack_a, t_dlist *target);
+void	place_target_a_at_top(t_stack *stack_a, t_dlist target);
 /*************************************************************************/
 
 #endif
