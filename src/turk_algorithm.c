@@ -36,7 +36,7 @@ static void	sort_in_a(t_stack *stack_a, t_stack *stack_b)
 		update_index(stack_a);
 		update_index(stack_b);
 		target = find_target_b(*stack_a, *stack_b->tail);
-		place_target_a_at_top(stack_a, target);
+		place_target_a_at_top(stack_a, *target);
 		pa(stack_a, stack_b);
 	}
 }
