@@ -1,8 +1,20 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/03 12:46:32 by artuda-s          #+#    #+#              #
+#    Updated: 2024/10/03 12:46:33 by artuda-s         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 # Binary
 BIN = push_swap
 
 # Compiler
-CC = gcc
+CC = cc
 CFLAGS = -I$(INC_DIR) -I$(LIB_DIR) -Wall -Wextra -Werror
 
 # Directories

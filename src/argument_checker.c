@@ -6,7 +6,7 @@
 /*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 20:47:21 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/07/26 15:06:05 by artuda-s         ###   ########.fr       */
+/*   Updated: 2024/10/03 12:58:15 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	is_valid_int(const char *str, int *num)
 {
-	long	result;
-	int		sign;
+	long			result;
+	long int		sign;
 
 	result = 0;
 	sign = 1;
@@ -30,7 +30,7 @@ int	is_valid_int(const char *str, int *num)
 		if (!ft_isdigit(*str))
 			return (0);
 		result = result * 10 + (*str - '0');
-		if (result > INT_MAX || result * sign < INT_MIN)
+		if (result * sign > INT_MAX || result * sign < -2147483648L)
 			return (0);
 		str++;
 	}
