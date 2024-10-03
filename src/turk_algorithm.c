@@ -55,13 +55,13 @@ static void	sort_in_a(t_stack *stack_a, t_stack *stack_b)
 
 static void	put_correct_order_a(t_stack *stack_a)
 {
-	t_dlist	*smaller;
+	t_dlist	smaller;
 
 	update_index(stack_a);
-	smaller = get_smaller(*stack_a);
-	while (stack_a->tail->num != smaller->num)
+	smaller = *get_smaller(*stack_a);
+	while (stack_a->tail->num != smaller.num)
 	{
-		if (smaller->above_medium)
+		if (smaller.above_medium)
 			ra(stack_a);
 		else
 			rra(stack_a);
